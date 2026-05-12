@@ -1,9 +1,13 @@
 ---
+
 name: Revenue Revision by Sector — Time Series Chart Skill
 description: Charts the time series of daily revenue estimate revisions versus a YTD start date for the S&P Global BMI Index, aggregated to the sector level and pre-filtered to the top 5 sectors by absolute revision at the latest revision date. Execution is a single CALL to a deployed Snowflake stored procedure that encapsulates the universe join, sector aggregation, and top-5 filter; the skill renders that result set as a multi-line time series chart of REV_PCT_CHANGE over REVISIONDATE.
+
 ---
+
 ## Objective
 Returns a long-format, tabular result set (revision date × sector × revision metrics) suitable for plotting a multi-line time series of cumulative revenue estimate revisions since `START_REVISION_DATE`. All universe membership (BMI constituents via `BASKETS_1`), the new-vs-old self-join on `revisiondate`, the dollar-weighted sector aggregation, and the top-5-by-absolute-revision filter are encapsulated inside the deployed stored procedure `QRSLLM_POC_DB.HENRY_SCHEMA.SP_REVENUE_REVISION_BY_SECTOR`, so every invocation produces an identical schema and identical aggregation logic regardless of caller.
+
 ---
 ## 🎯 EXECUTION PROCEDURE — FOLLOW EXACTLY
 ### Step 1 — Call the stored procedure

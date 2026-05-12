@@ -30,8 +30,11 @@ Plot the returned result set as a multi-line time series chart:
 - **title:** `S&P Global BMI — YTD Revenue Estimate Revisions by Sector ({PERIOD}, {START_REVISION_DATE} → {END_REVISION_DATE})`
 
 The procedure already pre-filters to the top 5 sectors by `ABS(rev_pct_change)` at the latest revision date, so do not re-filter or re-rank client-side. The procedure returns Snowflake-default UPPERCASE identifiers — preserve them. Do not rename, re-case, or post-process columns. Drop only the auxiliary columns (`MIN_REVISION_DATE`, `MAX_REVISION_DATE`, `COUNT_REVISION_DATE`, `DISTINCT_COMPANY_COUNT`) from the chart itself; they may be surfaced in a small accompanying table if the user asks for diagnostics.
+
 ### Step 3 — Narrate in ≤ 4 sentences
+
 State (i) the window covered and the forward `PERIOD` being revised, (ii) which of the 5 sectors saw the largest upward and downward cumulative revisions and by roughly how much, and (iii) any notable inflection points or divergence/convergence across sectors. Do not enumerate every sector on every date.
+
 ---
 ## Procedure Contract
 - **Fully qualified name:** `QRSLLM_POC_DB.HENRY_SCHEMA.SP_REVENUE_REVISION_BY_SECTOR`

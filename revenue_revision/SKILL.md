@@ -45,9 +45,19 @@ Plot the returned result set as a multi-line time series chart:
 
 The function already pre-filters to the top 5 sectors by `ABS(rev_pct_change)` at the latest revision date, so do not re-filter or re-rank client-side. The function returns Snowflake-default UPPERCASE identifiers — preserve them. Do not rename, re-case, or post-process columns. Drop only the auxiliary columns (`MIN_REVISION_DATE`, `MAX_REVISION_DATE`, `COUNT_REVISION_DATE`, `DISTINCT_COMPANY_COUNT`) from the chart itself; they may be surfaced in a small accompanying table if the user asks for diagnostics.
 
-### Step 3 — Narrate in ≤ 4 sentences
+### Step 3 — Narrate as a short bulleted summary
 
-State (i) the window covered and the forward `PERIOD` being revised, (ii) which of the 5 sectors saw the largest upward and downward cumulative revisions and by roughly how much, and (iii) any notable inflection points or divergence/convergence across sectors. Do not enumerate every sector on every date.
+Render the narration as a Markdown bulleted list of **3–5 bullets**, not as a single prose paragraph. Lead the response with a one-line header (e.g. `**Summary:**`) and then the bullets. Each bullet is a single short sentence; collectively the bullets cover:
+
+- The window covered and the forward `PERIOD` being revised.
+- The sector with the largest cumulative upward revision and roughly its magnitude.
+- The sector with the largest cumulative downward revision (or the most muted, if all five are positive) and roughly its magnitude.
+- Any notable inflection point, sign flip, or divergence/convergence across sectors over the window.
+- (Optional, only if it genuinely adds signal) one cross-sector observation, e.g. which sectors moved in lockstep vs. opposite directions.
+
+Do not enumerate every sector on every date, do not restate the chart's axes, and do not add a closing paragraph after the bullets.
+
+**Formatting rule for approximate values.** Use the words `roughly` or `approximately` to qualify imprecise figures — do **not** prefix numbers with `~` or `~~`. Double-tilde is GitHub-flavored Markdown for strikethrough, and an unclosed `~~+15.0%` will render as the literal characters `~~+15.0%` in the Snowflake Intelligence chat surface. Single `~` is also unsafe because some Markdown flavors (e.g. Pandoc with the `subscript` extension) treat `~x~` as subscript. If a symbol is required, use `≈` (U+2248); otherwise drop the qualifier entirely — a number like `+15.0%` is already obviously approximate in this context. Examples: `Energy led with roughly +15.0%` ✅ — `Energy led with ~~+15.0%` ❌ — `Energy led with ~+15.0%` ❌.
 
 ---
 
